@@ -1,261 +1,124 @@
-📊 Análise de Dados do ENEM 2023 – Capitais do Nordeste
-
-Este repositório contém o pipeline completo de tratamento, pré-processamento e análise exploratória dos microdados do ENEM 2023, com foco nas nove capitais da região Nordeste.
-O projeto inclui limpeza dos microdados, encoding das variáveis, geração de datasets intermediários e criação de visualizações geográficas.
-
-📁 Estrutura do Projeto
-🧠 Notebook Principal
-
-tratamento_dados_enem2.ipynb
-Contém todo o pipeline de carregamento, limpeza, transformação e visualização dos dados.
-
-📚 Arquivos de Dados
-Entrada
-
-MICRODADOS_ENEM_2023.csv — Microdados brutos do ENEM 2023 (formato original do INEP)
-
-Intermediários
-
-microdados_enem_tratados.csv — Dataset filtrado e limpo
-
-microdados_enem_tratados2.csv — Dataset após pré-processamento completo (encoding + ajustes)
-
-Saída
-
-nota_enem_nordeste.png — Mapa de calor das notas médias por estado
-
-🔧 Processamento de Dados
-1️⃣ Carregamento Inicial
-
-Leitura de arquivo CSV com:
-
-Separador ;
-
-Encoding latin1
-
-Mais de 60 variáveis relacionadas a:
-
-Dados socioeconômicos
-
-Notas das provas
-
-Informações demográficas e escolares
-
-2️⃣ Filtragem Inicial
-
-Foco em estudantes das capitais do Nordeste:
-
-Aracaju, Fortaleza, João Pessoa, Maceió, Natal, Recife, Salvador, São Luís e Teresina
-
-Filtros aplicados:
-
-Apenas participantes que concluíram ou estão concluindo o Ensino Médio
-
-Correção de coluna inexistente (NO_MUNICIPIO_ESCOLA → NO_MUNICIPIO_PROVA)
-
-3️⃣ Tratamento de Variáveis
-
-Raça/Cor recodificada (Branca = 1, demais = 0)
-
-Remoção de valores inválidos (ex.: "Não sei")
-
-Transformação de variáveis binárias (1 = Sim / 0 = Não)
-
-Redução para 22 variáveis principais
-
-4️⃣ Encoding
-
-One-Hot Encoding:
-
-TP_SEXO, TP_LOCALIZACAO_ESC, entre outras
-
-Label Encoding:
-
-Questões socioeconômicas (Q001–Q025)
-
-Faixa etária, escolaridade etc.
-
-5️⃣ Geoprocessamento
-
-Uso da biblioteca geobr
-
-Recorte para estados do Nordeste:
-AL, BA, CE, MA, PB, PE, PI, RN, SE
-
-Cálculo da nota média geral por estado
-
-União com shapefile para visualização no mapa
-
-📈 Visualização
-🗺️ Mapa de Calor – Notas Médias por Estado
-
-Coloração: YlOrRd (amarelo → vermelho)
-
-Estados identificados por sigla
-
-Bordas dos estados em preto
-
-Figura gerada e salva automaticamente em:
-
-C:\Users\CWS\Documents\TCC\Meu tcc\imagem2\
-
-🛠️ Dependências
-Biblioteca	Uso
-pandas	Manipulação e limpeza dos dados
-geobr	Carregamento de dados geográficos
-matplotlib	Visualizações
-scikit-learn	Pré-processamento e encoding
-IPython.display	Exibição no Jupyter
-Instalação
-pip install pandas geobr matplotlib scikit-learn
-
-🚀 Como Executar
-
-Coloque o arquivo MICRODADOS_ENEM_2023.csv no diretório do notebook
-
-Instale as dependências
-
-Abra tratamento_dados_enem2.ipynb
-
-Execute célula por célula
-
-Os arquivos intermediários e o mapa final serão gerados automaticamente
-
-📋 Considerações Técnicas
-⚠️ Problemas Encontrados
-
-Coluna inexistente:
-NO_MUNICIPIO_ESCOLA → substituído por NO_MUNICIPIO_PROVA
-
-Warning de downcasting:
-Pandas gerou alerta ao substituir valores em TP_COR_RACA
-
-CRS geográfico:
-Advertência ao usar projeção default dos shapefiles do geobr
-
-✨ Otimizações
-
-Redução significativa do dataset com filtros iniciais
-
-Encoding otimizado
-
-Agrupamento eficiente para gerar mapas
-
-🔮 Possíveis Análises Futuras
-📌 Correlações
-
-Fatores socioeconômicos × desempenho
-
-Tipo de escola × notas
-
-📌 Clusterização
-
-Perfis socioeconômicos usando K-Means, PCA ou UMAP
-
-📌 Séries Temporais
-
-Evolução das notas por estado/ano
-
-
-📊 Análise de Clusterização - Dados do ENEM no Nordeste
-Este projeto realiza uma análise de clusterização utilizando dados do ENEM de estudantes do Nordeste brasileiro, com o objetivo de identificar perfis socioeconômicos e de desempenho acadêmico.
-
-📌 Objetivo
-Identificar grupos de estudantes com características socioeconômicas e desempenhos semelhantes, permitindo uma análise regionalizada e a proposição de políticas públicas direcionadas.
-
-🗂️ Estrutura do Projeto
-text
-clustering_enem/
-│
-├── notebooks/
-│   └── clusterizacao_enem.ipynb   # Notebook principal da análise
-│
-├── data/                          # Dados tratados e intermediários
-├── outputs/                       # Resultados, gráficos e relatórios
-│   ├── clusters/
-│   │   ├── comparacao_grupos_sociais.docx
-│   │   ├── cluster_stats_2.csv
-│   │   ├── cluster_stats_3.csv
-│   │   ├── notas_media_por_cluster.csv
-│   │   ├── mapa_clusters_final_3.png
-│   │   └── ...
-│
-└── README.md                      # Este arquivo
-🔧 Pré-requisitos
-Antes de executar o notebook, instale as dependências:
-
-bash
-pip install pandas numpy matplotlib seaborn scikit-learn plotly geobr python-docx
-📈 Variáveis Utilizadas
-Q001: Escolaridade do pai
-
-Q002: Escolaridade da mãe
-
-Q003: Ocupação do pai
-
-Q004: Ocupação da mãe
-
-Q006: Renda familiar
-
-Q024: Computador em casa
-
-Q025: Internet em casa
-
-TP_ESCOLA: Tipo de escola
-
-TP_COR_RACA: Raça/cor
-
-NU_NOTA_MEDIA: Nota média nas áreas do conhecimento
-
-🧮 Métodos de Clusterização
-Foram utilizados os seguintes métodos para determinar o número ideal de clusters:
-
-Método do Cotovelo (Elbow Method)
-
-Método da Silhueta (Silhouette Score)
-
-Método Davies-Bouldin
-
-📊 Resultados Principais
-Clusters Identificados (3 grupos):
-Vulnerável – Baixa escolaridade dos pais, menor renda, menor acesso a recursos.
-
-Intermediário – Características medianas entre vulnerável e privilegiado.
-
-Privilegiado – Maior escolaridade dos pais, maior renda, acesso a recursos tecnológicos e escola privada.
-
-Estatísticas por Cluster:
-Variável	Vulnerável	Intermediário	Privilegiado
-Renda Familiar (Q006)	1.55	3.56	10.82
-Computador em Casa	0.19	0.71	2.21
-Escola Privada	0.03	0.47	0.94
-Nota Média	500.03	575.62	660.00
-🗺️ Visualizações Geradas
-Mapa coroplético do Nordeste com cluster predominante por estado
-
-Gráficos de dispersão (PCA 2D e 3D)
-
-Gráficos de barras com distribuição proporcional por estado
-
-Documento Word com tabela comparativa entre os grupos sociais
-
-📄 Relatório de Validação Estatística
-Foi aplicada ANOVA para validar a significância estatística das diferenças entre clusters. Todas as variáveis socioeconômicas apresentaram p-valor < 0.05, indicando que os clusters são estatisticamente distintos.
-
-🚀 Como Executar
-Clone o repositório (ou baixe o notebook)
-
-Certifique-se de que os dados do ENEM estão no caminho correto (ajuste no código se necessário)
-
-Execute as células do notebook clusterizacao_enem.ipynb em sequência
-
-Os resultados serão salvos automaticamente na pasta clusters/
-
-📌 Observações
-Os dados utilizados são do ENEM, tratados e filtrados para o Nordeste.
-
-O tratamento inclui normalização de texto, codificação de variáveis categóricas e remoção de outliers.
-
-O relatório final em Word é gerado automaticamente ao final da execução.
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+
+    <header style="border-bottom: 3px solid #007bff; padding-bottom: 10px; margin-bottom: 20px;">
+        <h1 style="color: #007bff; font-size: 2.2em; display: flex; align-items: center;">
+            <span style="font-size: 1.5em; margin-right: 15px;">📊</span> Análise de Dados do ENEM 2023 – Capitais do Nordeste
+        </h1>
+        <p style="font-size: 1.1em; color: #555;">
+            Pipeline completo de tratamento, pré-processamento e análise exploratória e de clusterização dos microdados do ENEM 2023, com foco nas nove capitais da região Nordeste.
+        </p>
+    </header>
+
+    <section style="margin-bottom: 30px; padding: 15px; background-color: #f8f9fa; border-left: 5px solid #28a745; border-radius: 4px;">
+        <h2 style="color: #28a745; font-size: 1.5em; margin-top: 0; display: flex; align-items: center;">
+            <span style="margin-right: 10px;">🌟</span> Resumo do Projeto
+        </h2>
+        <p>O projeto está dividido em duas fases:</p>
+        <ul style="list-style-type: none; padding: 0;">
+            <li style="margin-bottom: 8px; padding-left: 20px; position: relative;"><span style="color: #007bff; font-weight: bold; position: absolute; left: 0;">➤</span> <strong>Tratamento e Pré-processamento:</strong> Limpeza, filtragem (capitais do Nordeste), <em>encoding</em> de variáveis e redução dimensional.</li>
+            <li style="margin-bottom: 8px; padding-left: 20px; position: relative;"><span style="color: #007bff; font-weight: bold; position: absolute; left: 0;">➤</span> <strong>Análise e Clusterização (K-Means):</strong> Identificação de perfis socioeconômicos e de desempenho acadêmico.</li>
+        </ul>
+    </section>
+
+    <section style="margin-bottom: 30px;">
+        <h2 style="color: #333; font-size: 1.5em; margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; display: flex; align-items: center;">
+            <span style="margin-right: 10px;">📁</span> Estrutura do Repositório
+        </h2>
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead style="background-color: #e9ecef;">
+                <tr>
+                    <th style="padding: 10px; border: 1px solid #dee2e6;">Caminho</th>
+                    <th style="padding: 10px; border: 1px solid #dee2e6;">Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: #f1f1f1;">
+                    <td style="padding: 10px; border: 1px solid #dee2e6;"><code>tratamento_dados_enem2.ipynb</code></td>
+                    <td style="padding: 10px; border: 1px solid #dee2e6;">Notebook Principal: Limpeza, transformação e visualização inicial.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #dee2e6;"><code>clustering_enem/clusterizacao_enem.ipynb</code></td>
+                    <td style="padding: 10px; border: 1px solid #dee2e6;">Notebook de Clusterização: K-Means, seleção de <em>k</em> ideal e validação.</td>
+                </tr>
+                <tr style="background-color: #f1f1f1;">
+                    <td style="padding: 10px; border: 1px solid #dee2e6;"><code>data/</code></td>
+                    <td style="padding: 10px; border: 1px solid #dee2e6;">Dados tratados e intermediários.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #dee2e6;"><code>outputs/</code></td>
+                    <td style="padding: 10px; border: 1px solid #dee2e6;">Resultados finais (mapas, gráficos, estatísticas e relatório).</td>
+                </tr>
+                <tr style="background-color: #f1f1f1;">
+                    <td style="padding: 10px; border: 1px solid #dee2e6;"><code>MICRODADOS_ENEM_2023.csv</code></td>
+                    <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>Entrada:</strong> Microdados brutos do ENEM (obtido via INEP).</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section style="margin-bottom: 30px;">
+        <h2 style="color: #333; font-size: 1.5em; margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; display: flex; align-items: center;">
+            <span style="margin-right: 10px;">🔧</span> Detalhes do Processamento
+        </h2>
+        
+        <h3 style="color: #495057; font-size: 1.3em; margin-top: 20px;">Fase 1: Tratamento de Dados</h3>
+        <ul style="padding-left: 25px;">
+            <li><strong>Filtragem:</strong> Foco nas 9 capitais do Nordeste e participantes concluintes/cursando o Ensino Médio.</li>
+            <li><strong>Ajustes:</strong> Correção de coluna inexistente (<code>NO_MUNICIPIO_ESCOLA</code> → <code>NO_MUNICIPIO_PROVA</code>).</li>
+            <li><strong>Encoding:</strong> Uso de One-Hot (Ex.: TP_SEXO) e Label Encoding (Ex.: Questões socioeconômicas Q001-Q025).</li>
+            <li><strong>Geoprocessamento:</strong> Geração de Mapa de Calor de Notas Médias por estado Nordestino (<code>geobr</code> + <code>matplotlib</code>).</li>
+        </ul>
+
+        <h3 style="color: #495057; font-size: 1.3em; margin-top: 20px;">Fase 2: Análise de Clusterização (K-Means)</h3>
+        <ul style="padding-left: 25px;">
+            <li><strong>Variáveis-Chave:</strong> Q001, Q002 (Escolaridade dos Pais), Q006 (Renda Familiar), Q024, Q025 (Recursos Tecnológicos) e <code>NU_NOTA_MEDIA</code>.</li>
+            <li><strong>Metodologia:</strong> Determinação do <em>k</em> ideal via **Métodos do Cotovelo e Silhueta**.</li>
+            <li><strong>Validação:</strong> Aplicação de **ANOVA** para comprovar a significância estatística dos clusters ($\small p \text{-valor} < 0.05$).</li>
+        </ul>
+
+        <h4 style="color: #495057; font-size: 1.2em; margin-top: 20px; border-left: 3px solid #ffc107; padding-left: 10px;">Resultados: 3 Perfis Identificados</h4>
+        <div style="display: flex; justify-content: space-between; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; border: 1px solid #dc3545; padding: 10px; border-radius: 4px; background-color: #fceae9;">
+                <p style="font-weight: bold; color: #dc3545; margin-top: 0;">🔴 Vulnerável</p>
+                <p style="font-size: 0.9em; margin: 0;">Baixa renda e escolaridade dos pais. **Nota Média: 500.03**.</p>
+            </div>
+            <div style="flex: 1; border: 1px solid #ffc107; padding: 10px; border-radius: 4px; background-color: #fff8e6;">
+                <p style="font-weight: bold; color: #ffc107; margin-top: 0;">🟡 Intermediário</p>
+                <p style="font-size: 0.9em; margin: 0;">Características medianas de desempenho e socioeconomia.</p>
+            </div>
+            <div style="flex: 1; border: 1px solid #28a745; padding: 10px; border-radius: 4px; background-color: #e9f5e9;">
+                <p style="font-weight: bold; color: #28a745; margin-top: 0;">🟢 Privilegiado</p>
+                <p style="font-size: 0.9em; margin: 0;">Maior renda, recursos tecnológicos e escola privada. **Nota Média: 660.00**.</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="margin-bottom: 30px; background-color: #e9f4ff; padding: 20px; border-radius: 8px;">
+        <h2 style="color: #007bff; font-size: 1.5em; margin-bottom: 15px; display: flex; align-items: center;">
+            <span style="margin-right: 10px;">🚀</span> Como Executar
+        </h2>
+        
+        <h3 style="color: #495057; font-size: 1.2em; margin-top: 0;">1. Dependências</h3>
+        <p>Instale as bibliotecas necessárias:</p>
+        <pre style="background-color: #343a40; color: #fff; padding: 10px; border-radius: 4px; overflow-x: auto;"><code>pip install pandas numpy matplotlib seaborn scikit-learn plotly geobr python-docx</code></pre>
+        
+        <h3 style="color: #495057; font-size: 1.2em;">2. Execução</h3>
+        <ol style="padding-left: 25px;">
+            <li style="margin-bottom: 5px;">Coloque o arquivo <code>MICRODADOS_ENEM_2023.csv</code> na raiz do diretório.</li>
+            <li style="margin-bottom: 5px;">Execute as células do notebook <code>tratamento_dados_enem2.ipynb</code>.</li>
+            <li>Execute as células do notebook <code>clustering_enem/clusterizacao_enem.ipynb</code>.</li>
+        </ol>
+        <p style="margin-top: 15px; color: #dc3545; font-weight: bold; border-top: 1px solid #ff8888; padding-top: 10px;">⚠️ Os arquivos intermediários e o mapa final serão gerados automaticamente nas pastas <code>data/</code> e <code>outputs/</code>.</p>
+    </section>
+
+    <footer style="border-top: 1px solid #ccc; padding-top: 15px; margin-top: 20px; font-size: 0.9em; color: #6c757d;">
+        <h4 style="color: #6c757d; margin-top: 0; display: flex; align-items: center;"><span style="margin-right: 10px;">📋</span> Considerações Técnicas</h4>
+        <ul style="padding-left: 25px;">
+            <li>**Otimizações:** Redução significativa do dataset e uso de <em>encoding</em> otimizado para a clusterização.</li>
+            <li>**Problemas:** Necessária correção da coluna <code>NO_MUNICIPIO_ESCOLA</code> para <code>NO_MUNICIPIO_PROVA</code>.</li>
+        </ul>
+        <p style="text-align: center; margin-top: 15px;">Desenvolvido para análise de TCC/Acadêmica.</p>
+    </footer>
+</div>
 
 
