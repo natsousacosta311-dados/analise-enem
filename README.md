@@ -155,3 +155,107 @@ Perfis socioeconômicos usando K-Means, PCA ou UMAP
 📌 Séries Temporais
 
 Evolução das notas por estado/ano
+
+
+📊 Análise de Clusterização - Dados do ENEM no Nordeste
+Este projeto realiza uma análise de clusterização utilizando dados do ENEM de estudantes do Nordeste brasileiro, com o objetivo de identificar perfis socioeconômicos e de desempenho acadêmico.
+
+📌 Objetivo
+Identificar grupos de estudantes com características socioeconômicas e desempenhos semelhantes, permitindo uma análise regionalizada e a proposição de políticas públicas direcionadas.
+
+🗂️ Estrutura do Projeto
+text
+clustering_enem/
+│
+├── notebooks/
+│   └── clusterizacao_enem.ipynb   # Notebook principal da análise
+│
+├── data/                          # Dados tratados e intermediários
+├── outputs/                       # Resultados, gráficos e relatórios
+│   ├── clusters/
+│   │   ├── comparacao_grupos_sociais.docx
+│   │   ├── cluster_stats_2.csv
+│   │   ├── cluster_stats_3.csv
+│   │   ├── notas_media_por_cluster.csv
+│   │   ├── mapa_clusters_final_3.png
+│   │   └── ...
+│
+└── README.md                      # Este arquivo
+🔧 Pré-requisitos
+Antes de executar o notebook, instale as dependências:
+
+bash
+pip install pandas numpy matplotlib seaborn scikit-learn plotly geobr python-docx
+📈 Variáveis Utilizadas
+Q001: Escolaridade do pai
+
+Q002: Escolaridade da mãe
+
+Q003: Ocupação do pai
+
+Q004: Ocupação da mãe
+
+Q006: Renda familiar
+
+Q024: Computador em casa
+
+Q025: Internet em casa
+
+TP_ESCOLA: Tipo de escola
+
+TP_COR_RACA: Raça/cor
+
+NU_NOTA_MEDIA: Nota média nas áreas do conhecimento
+
+🧮 Métodos de Clusterização
+Foram utilizados os seguintes métodos para determinar o número ideal de clusters:
+
+Método do Cotovelo (Elbow Method)
+
+Método da Silhueta (Silhouette Score)
+
+Método Davies-Bouldin
+
+📊 Resultados Principais
+Clusters Identificados (3 grupos):
+Vulnerável – Baixa escolaridade dos pais, menor renda, menor acesso a recursos.
+
+Intermediário – Características medianas entre vulnerável e privilegiado.
+
+Privilegiado – Maior escolaridade dos pais, maior renda, acesso a recursos tecnológicos e escola privada.
+
+Estatísticas por Cluster:
+Variável	Vulnerável	Intermediário	Privilegiado
+Renda Familiar (Q006)	1.55	3.56	10.82
+Computador em Casa	0.19	0.71	2.21
+Escola Privada	0.03	0.47	0.94
+Nota Média	500.03	575.62	660.00
+🗺️ Visualizações Geradas
+Mapa coroplético do Nordeste com cluster predominante por estado
+
+Gráficos de dispersão (PCA 2D e 3D)
+
+Gráficos de barras com distribuição proporcional por estado
+
+Documento Word com tabela comparativa entre os grupos sociais
+
+📄 Relatório de Validação Estatística
+Foi aplicada ANOVA para validar a significância estatística das diferenças entre clusters. Todas as variáveis socioeconômicas apresentaram p-valor < 0.05, indicando que os clusters são estatisticamente distintos.
+
+🚀 Como Executar
+Clone o repositório (ou baixe o notebook)
+
+Certifique-se de que os dados do ENEM estão no caminho correto (ajuste no código se necessário)
+
+Execute as células do notebook clusterizacao_enem.ipynb em sequência
+
+Os resultados serão salvos automaticamente na pasta clusters/
+
+📌 Observações
+Os dados utilizados são do ENEM, tratados e filtrados para o Nordeste.
+
+O tratamento inclui normalização de texto, codificação de variáveis categóricas e remoção de outliers.
+
+O relatório final em Word é gerado automaticamente ao final da execução.
+
+
