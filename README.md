@@ -119,5 +119,6 @@ Correlações: Detalhamento da relação entre Fatores Socioeconômicos e Desemp
 
 Séries Temporais: Análise da evolução das notas por estado/ano para identificar tendências históricas.
 
+melhore a escrita desse readme. nao está com destaque nem nada.
 
 
