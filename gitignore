@@ -1,0 +1,17 @@
+# Arquivos de dados grandes (NÃO envia para GitHub)
+*.csv
+*.xlsx
+*.xls
+*.pdf
+*.zip
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+
+# Sistema
+.DS_Store
+Thumbs.db
